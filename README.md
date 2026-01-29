@@ -43,7 +43,7 @@ A cybersecurity home lab built for practicing SOC analyst skills, including thre
 If you're using this repository as a template:
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR-USERNAME/soc-analyst-home-lab.git
+git clone https://github.com/ghosthacks/soc-analyst-home-lab.git
 cd soc-analyst-home-lab
 
 # Start the lab
