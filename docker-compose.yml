@@ -36,15 +36,24 @@ services:
     networks:
       - lab_network
 
-  metasploitable:
-    image: tleemcjr/metasploitable2
-    container_name: metasploitable-target
-    hostname: metasploitable-target
+  #metasploitable:
+  #  platform: linux/amd64 #added due to apple silicon issues	
+   # image: tleemcjr/metasploitable2
+   # container_name: metasploitable-target
+   # hostname: metasploitable-target
+   # ports:
+   #   - "2222:22"    # SSH
+   #  - "8081:80"    # HTTP
+   #   - "2121:21"    # FTP
+   #   - "5432:5432"  # PostgreSQL
+   # networks:
+   #   - lab_network
+  webgoat:
+    image: webgoat/webgoat
+    container_name: webgoat-target
     ports:
-      - "2222:22"    # SSH
-      - "8081:80"    # HTTP
-      - "2121:21"    # FTP
-      - "5432:5432"  # PostgreSQL
+      - "8081:8080"
+      - "9090:9090"
     networks:
       - lab_network
 
