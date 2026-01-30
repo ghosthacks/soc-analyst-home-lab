@@ -13,6 +13,13 @@ A cybersecurity home lab built for practicing SOC analyst skills, including thre
 
 ### Lab Components
 
+## Platform Notes
+
+This lab is optimized for Apple Silicon (M1/M2/M3) Macs:
+- WebGoat is used instead of Metasploitable2 for better ARM64 compatibility
+- All containers run natively or via Rosetta 2 emulation
+- Works equally well on Intel Macs and Linux systems
+
 #### Attack Machine
 - **Kali Linux** - Penetration testing platform with tools:
   - nmap (network scanning)
@@ -30,6 +37,7 @@ A cybersecurity home lab built for practicing SOC analyst skills, including thre
 - **Splunk Universal Forwarder** (on Mac host)
 - **Docker Log Collection** - Real-time container log forwarding
 - **Custom Docker Network** - Isolated lab environment
+- **OWASP WebGoat** - Port 8081 (WebGoat), Port 9090 (WebWolf)
 
 ## Setup Instructions
 
@@ -188,6 +196,8 @@ index=main source="*/dvwa.log" "login"
 - **Juice Shop**: http://localhost:3000
 - **Nginx**: http://localhost:8082
 - **Splunk**: http://192.168.0.54:8000
+- **WebGoat**: http://localhost:8081/WebGoat (register to create account)
+- **WebWolf**: http://localhost:9090/WebWolf (companion app for WebGoat)
 
 ## Skills Demonstrated
 
