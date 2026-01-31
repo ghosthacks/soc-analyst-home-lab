@@ -1,5 +1,21 @@
 # SOC Lab Quick Reference Guide
 
+## 🎯 Quick Start/Stop
+
+### Start Everything
+```bash
+cd ~/soc-lab
+./start-lab.sh
+```
+
+### Stop Everything
+```bash
+cd ~/soc-lab
+./stop-lab.sh
+```
+
+---
+
 ## 🚀 Starting the Lab
 
 ### Start All Containers
