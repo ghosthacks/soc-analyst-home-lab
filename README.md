@@ -212,10 +212,10 @@ index=main source="*/dvwa.log" "login"
 
 - [ ] Add Suricata IDS for network traffic analysis
 - [ ] Implement additional attack scenarios (SQL injection, XSS, port scanning)
-- [ ] Create comprehensive SOC dashboard
+- [X] Create comprehensive SOC dashboard
 - [ ] Add automated incident response playbooks
 - [ ] Integrate threat intelligence feeds
-- [ ] Set up email alerting
+- [X] Set up email alerting
 
 ## Tools & Technologies
 
@@ -232,6 +232,45 @@ index=main source="*/dvwa.log" "login"
 - [DVWA Guide](https://github.com/digininja/DVWA)
 - [OWASP Juice Shop](https://owasp.org/www-project-juice-shop/)
 - [Kali Linux Tools](https://www.kali.org/tools/)
+
+
+## 🛡️ Blue Team Detection & Analysis
+
+### DVWA Brute Force Attack Detection
+Successfully detected and analyzed a credential brute force attack using Splunk SIEM.
+
+**Attack Scenario:**
+- **Tool:** Hydra password brute forcer
+- **Target:** DVWA login page
+- **Volume:** 418 login attempts from Kali container (172.25.0.3)
+- **Success Rate:** 33.4% (attacker gained access)
+- **User Agent:** Mozilla/5.0 (Hydra)
+
+**Detection Method:**
+- Splunk Universal Forwarder collecting Docker container logs
+- Custom SPL queries for field extraction and correlation
+- Regex parsing for source IP, HTTP method, status codes, user agent
+
+**Dashboard Components:**
+1. **Attack Timeline** — Visualized 240 attempts/minute spike
+2. **Source IP Analysis** — Identified single attacking host
+3. **Success vs Failure Rate** — 66.6% failed, 33.4% successful (HTTP 302 redirects)
+4. **Recent Activity Table** — Real-time attack details with user agent fingerprinting
+
+**Alert Configuration:**
+- **Threshold:** >20 login attempts in 60 minutes
+- **Trigger:** Automated detection with 10-minute suppression
+- **Action:** Alert logged in Splunk (email disabled on free license)
+
+📊 **[View Dashboard](dashboards/DVWA_Brute_Force_Detection.pdf)**
+
+---
+
+**Key Takeaways:**
+- HTTP status codes reveal attack success (200 = failed, 302 = success)
+- User agent strings provide tool attribution
+- Concentrated time-based attacks create distinctive log patterns
+- Threshold-based alerting effective for brute force detection
 
 ## Author
 
