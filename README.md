@@ -272,6 +272,111 @@ Successfully detected and analyzed a credential brute force attack using Splunk 
 - Concentrated time-based attacks create distinctive log patterns
 - Threshold-based alerting effective for brute force detection
 
+## 🔍 SIEM Integration - Wazuh
+
+### Overview
+The lab now includes **Wazuh** - a free, open-source SIEM/XDR platform running in a Docker container alongside the existing infrastructure.
+
+**Why Wazuh?**
+- No licensing limitations (unlimited data ingestion)
+- Built-in EDR capabilities
+- File integrity monitoring (FIM)
+- Vulnerability detection
+- Active response capabilities
+- Industry-standard open-source platform
+
+### Architecture
+
+**Wazuh Container Components:**
+- **Wazuh Manager** - Core SIEM engine for log analysis, correlation, and alerting
+- **Wazuh Indexer** - OpenSearch-based data storage (4GB RAM allocation)
+- **Wazuh Dashboard** - Web-based interface for visualization and incident response
+
+**Container Specifications:**
+- **Image:** `jrei/systemd-ubuntu:22.04` (systemd-enabled for service management)
+- **Platform:** `linux/amd64` (required for Wazuh/Java compatibility on Apple Silicon)
+- **Memory:** ~6GB allocated (4GB indexer + 2GB manager/dashboard)
+- **Privileges:** Runs privileged with cgroup access for systemd functionality
+
+### Access
+
+- **Dashboard:** `https://localhost:8443`
+- **Credentials:** `admin` / `admin` (default - should be changed)
+- **Wazuh API:** `https://localhost:55000`
+- **Indexer API:** `https://localhost:9200`
+
+**🔒 Security Note:** All Wazuh ports are bound to `127.0.0.1` (localhost only) and are NOT exposed to your home network or the internet.
+
+### Service Status
+
+Check all Wazuh services:
+```bash
+docker exec -it wazuh-server /var/ossec/bin/wazuh-control status
+```
+
+Expected output:
+- ✅ wazuh-modulesd
+- ✅ wazuh-monitord
+- ✅ wazuh-remoted
+- ✅ wazuh-analysisd
+- ✅ wazuh-db
+- ✅ wazuh-apid
+
+### Implementation Challenges & Solutions
+
+**Challenge 1: Java JNA Library Loading**
+- **Issue:** Wazuh indexer failed with `UnsatisfiedLinkError` when `/tmp` was mounted as tmpfs
+- **Solution:** Removed `/tmp` from tmpfs mounts in docker-compose.yml
+
+**Challenge 2: OpenSearch Security Not Initialized**
+- **Issue:** Indexer running but dashboard couldn't connect - security plugin not initialized
+- **Solution:** Manually ran securityadmin tool to populate security configurations
+```bash
+/usr/share/wazuh-indexer/plugins/opensearch-security/tools/securityadmin.sh \
+  -cd /etc/wazuh-indexer/opensearch-security/ \
+  -icl -nhnv \
+  -cacert /etc/wazuh-indexer/certs/root-ca.pem \
+  -cert /etc/wazuh-indexer/certs/admin.pem \
+  -key /etc/wazuh-indexer/certs/admin-key.pem
+```
+
+**Challenge 3: Systemd in Docker Container**
+- **Issue:** Standard Ubuntu image doesn't include systemd, breaking Wazuh service management
+- **Solution:** Used `jrei/systemd-ubuntu:22.04` image with pre-configured systemd support
+
+### Stored Credentials
+
+Admin credentials stored inside container:
+```bash
+docker exec -it wazuh-server cat wazuh-install-files/wazuh-passwords.txt
+```
+
+Contains passwords for:
+- Dashboard admin user
+- API users (wazuh, wazuh-wui)
+- Indexer internal users
+
+### Next Steps
+
+- [ ] Install Wazuh agents on Mac host
+- [ ] Deploy agents to Docker containers (Kali, DVWA, Juice Shop, etc.)
+- [ ] Configure log collection from all attack/target containers
+- [ ] Create custom detection rules for attack patterns
+- [ ] Build security dashboards for:
+  - Brute force attacks
+  - SQL injection attempts
+  - Port scanning activity
+  - Web application attacks
+- [ ] Integrate with attack scenarios for real-time detection
+- [ ] Set up automated incident response workflows
+
+### Resources
+
+- **Installation Guide:** `bash wazuh-install.sh -a` (all-in-one inside container)
+- **Wazuh Docs:** https://documentation.wazuh.com
+- **GitHub Repo:** https://github.com/wazuh/wazuh
+
+---
 ## Author
 
 [Nathan Harris]  
