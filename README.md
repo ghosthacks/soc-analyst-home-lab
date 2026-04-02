@@ -520,3 +520,14 @@ Aspiring SOC Analyst
 ## License
 
 MIT License - Feel free to use this for your own learning!
+## Agent Deployment
+
+**Mac Host Agent:**
+- **Status:** Active (ID: 001)
+- **Install Location:** /Library/Ossec/
+- **Events Collected:** System logs, file integrity, security assessments
+- **Start Command:** `sudo /Library/Ossec/bin/wazuh-control start`
+
+**Container Agents:**
+- Pending - requires systemd-enabled base images or alternative init system
+
