@@ -3,7 +3,9 @@ services:
   # ATTACK MACHINE
   # ============================================
   kali:
-    image: kalilinux/kali-rolling
+    build:
+      context: .
+      dockerfile: Dockerfile.kali
     container_name: kali-attacker
     hostname: kali-attacker
     stdin_open: true
@@ -14,7 +16,6 @@ services:
     volumes:
       - kali-data:/root
     # To access: docker exec -it kali-attacker /bin/bash
-
   # ============================================
   # VULNERABLE TARGETS
   # ============================================
@@ -26,7 +27,6 @@ services:
       - "8080:80"
     networks:
       - lab_network
-
   juiceshop:
     image: bkimminich/juice-shop
     container_name: juiceshop-target
@@ -35,19 +35,6 @@ services:
       - "3000:3000"
     networks:
       - lab_network
-
-  #metasploitable:
-  #  platform: linux/amd64 #added due to apple silicon issues	
-   # image: tleemcjr/metasploitable2
-   # container_name: metasploitable-target
-   # hostname: metasploitable-target
-   # ports:
-   #   - "2222:22"    # SSH
-   #  - "8081:80"    # HTTP
-   #   - "2121:21"    # FTP
-   #   - "5432:5432"  # PostgreSQL
-   # networks:
-   #   - lab_network
   webgoat:
     image: webgoat/webgoat
     container_name: webgoat-target
@@ -56,7 +43,6 @@ services:
       - "9090:9090"
     networks:
       - lab_network
-
   # ============================================
   # WEB SERVER (for log generation)
   # ============================================
@@ -70,7 +56,35 @@ services:
       - lab_network
     volumes:
       - nginx-logs:/var/log/nginx
-
+# ============================================
+  # WAZUH SIEM
+  # ============================================
+  wazuh-server:
+    platform: linux/amd64
+    image: jrei/systemd-ubuntu:22.04
+    container_name: wazuh-server
+    hostname: wazuh-server
+    privileged: true
+    security_opt:
+      - seccomp:unconfined
+    tmpfs:
+      - /run
+      - /run/lock
+   #   - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+      - wazuh-data:/var/ossec
+    ports:
+      - "127.0.0.1:8443:443"      # Wazuh dashboard
+      - "127.0.0.1:1514:1514"     # Agent communication
+      - "127.0.0.1:1515:1515"     # Agent enrollment
+      - "127.0.0.1:55000:55000"   # Wazuh API
+      - "127.0.0.1:9200:9200"     # Indexer (optional)
+    networks:
+      - lab_network
+    command: /sbin/init
+    tty: true
+    stdin_open: true
 # ============================================
 # NETWORKS
 # ============================================
@@ -88,3 +102,4 @@ networks:
 volumes:
   kali-data:
   nginx-logs:
+  wazuh-data:
