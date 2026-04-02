@@ -293,17 +293,33 @@ The lab now includes **Wazuh** - a free, open-source SIEM/XDR platform running i
 - **Wazuh Dashboard** - Web-based interface for visualization and incident response
 
 **Container Specifications:**
+
 - **Image:** `jrei/systemd-ubuntu:22.04` (systemd-enabled for service management)
 - **Platform:** `linux/amd64` (required for Wazuh/Java compatibility on Apple Silicon)
-- **Memory:** ~6GB allocated (4GB indexer + 2GB manager/dashboard)
+- **Memory Requirements:** 
+  - Minimum: 8GB Docker Desktop allocation
+  - Recommended: 10GB Docker Desktop allocation
+  - Indexer alone: ~4-5GB during operation
 - **Privileges:** Runs privileged with cgroup access for systemd functionality
+- **Startup Time:** 90-120 seconds for full initialization
 
 ### Access
 
 - **Dashboard:** `https://localhost:8443`
-- **Credentials:** `admin` / `admin` (default - should be changed)
+- **Default Credentials:** `admin` / `admin` ⚠️ **Change immediately after first login**
 - **Wazuh API:** `https://localhost:55000`
 - **Indexer API:** `https://localhost:9200`
+
+**🔒 Security Note:** All Wazuh ports are bound to `127.0.0.1` (localhost only) and are NOT exposed to your home network or the internet.
+
+**Password File (inside container):**
+```bash
+docker exec -it wazuh-server cat wazuh-install-files/wazuh-passwords.txt
+```
+This file contains all generated passwords for:
+- Dashboard admin user
+- Wazuh API users
+- Indexer internal users
 
 **🔒 Security Note:** All Wazuh ports are bound to `127.0.0.1` (localhost only) and are NOT exposed to your home network or the internet.
 
@@ -326,12 +342,21 @@ Expected output:
 
 **Challenge 1: Java JNA Library Loading**
 - **Issue:** Wazuh indexer failed with `UnsatisfiedLinkError` when `/tmp` was mounted as tmpfs
+- **Root Cause:** Java's JNA (Java Native Access) library cannot load native code from tmpfs filesystems
 - **Solution:** Removed `/tmp` from tmpfs mounts in docker-compose.yml
+```yaml
+tmpfs:
+  - /run
+  - /run/lock
+  # - /tmp  # REMOVED - causes Java JNA errors
+```
 
 **Challenge 2: OpenSearch Security Not Initialized**
-- **Issue:** Indexer running but dashboard couldn't connect - security plugin not initialized
-- **Solution:** Manually ran securityadmin tool to populate security configurations
+- **Issue:** Indexer running but dashboard couldn't connect - "Not yet initialized (you may need to run securityadmin)"
+- **Root Cause:** Wazuh installer doesn't properly initialize the OpenSearch security plugin in containerized environments
+- **Solution:** Manually run securityadmin tool after indexer starts
 ```bash
+export JAVA_HOME=/usr/share/wazuh-indexer/jdk
 /usr/share/wazuh-indexer/plugins/opensearch-security/tools/securityadmin.sh \
   -cd /etc/wazuh-indexer/opensearch-security/ \
   -icl -nhnv \
@@ -339,10 +364,120 @@ Expected output:
   -cert /etc/wazuh-indexer/certs/admin.pem \
   -key /etc/wazuh-indexer/certs/admin-key.pem
 ```
+**Note:** Config files are in `/etc/wazuh-indexer/opensearch-security/`, NOT `/usr/share/wazuh-indexer/plugins/opensearch-security/securityconfig/`
 
 **Challenge 3: Systemd in Docker Container**
-- **Issue:** Standard Ubuntu image doesn't include systemd, breaking Wazuh service management
+- **Issue:** Standard Ubuntu image doesn't include systemd, breaking Wazuh's service management
 - **Solution:** Used `jrei/systemd-ubuntu:22.04` image with pre-configured systemd support
+- **Configuration:** Requires privileged mode and cgroup access
+```yaml
+privileged: true
+security_opt:
+  - seccomp:unconfined
+volumes:
+  - /sys/fs/cgroup:/sys/fs/cgroup:rw
+command: /sbin/init
+```
+
+**Challenge 4: Indexer Permission Errors on Restart**
+- **Issue:** `java.nio.file.AccessDeniedException: /etc/wazuh-indexer/backup` on container restart
+- **Root Cause:** File permissions reset when container restarts (not persisted in volume)
+- **Solution:** Added permission fixes to startup script
+```bash
+chown -R wazuh-indexer:wazuh-indexer /etc/wazuh-indexer/backup
+chown -R wazuh-indexer:wazuh-indexer /var/log/wazuh-indexer
+chmod 750 /etc/wazuh-indexer/backup
+```
+
+**Challenge 5: Indexer OOM Killed on Auto-Start (Exit Code 137)**
+- **Issue:** Indexer process killed with exit code 137 during container boot
+- **Root Cause:** Memory pressure when all services start simultaneously + insufficient Docker memory allocation
+- **Solution 1:** Increased Docker Desktop memory from 7.6GB to 10GB
+  - Settings → Resources → Memory → 10GB → Apply & Restart
+- **Solution 2:** Added 10-second delay to auto-start service to reduce boot race conditions
+```bash
+[Service]
+Type=oneshot
+ExecStartPre=/bin/sleep 10
+ExecStart=/usr/local/bin/start-wazuh.sh
+TimeoutStartSec=300
+```
+
+**Challenge 6: Services Not Auto-Starting on Container Restart**
+- **Issue:** All Wazuh services stopped when container restarted
+- **Solution:** Created systemd service that runs startup script on boot
+```bash
+# Startup script: /usr/local/bin/start-wazuh.sh
+# Systemd service: /etc/systemd/system/wazuh-autostart.service
+systemctl enable wazuh-autostart.service
+```
+**Startup Time:** ~90-120 seconds (45s indexer wait + initialization + dashboard)
+
+### Auto-Start Configuration
+
+The lab includes an automated startup system that ensures all Wazuh services start correctly on container boot.
+
+**Startup Script:** `/usr/local/bin/start-wazuh.sh`
+```bash
+#!/bin/bash
+# Fix permissions that reset on container restart
+chown -R wazuh-indexer:wazuh-indexer /etc/wazuh-indexer/backup 2>/dev/null || true
+chown -R wazuh-indexer:wazuh-indexer /var/log/wazuh-indexer 2>/dev/null || true
+chmod 750 /etc/wazuh-indexer/backup 2>/dev/null || true
+
+# Start indexer and wait for full initialization
+systemctl start wazuh-indexer
+sleep 45
+
+# Initialize OpenSearch security plugin
+export JAVA_HOME=/usr/share/wazuh-indexer/jdk
+/usr/share/wazuh-indexer/plugins/opensearch-security/tools/securityadmin.sh \
+  -cd /etc/wazuh-indexer/opensearch-security/ \
+  -icl -nhnv \
+  -cacert /etc/wazuh-indexer/certs/root-ca.pem \
+  -cert /etc/wazuh-indexer/certs/admin.pem \
+  -key /etc/wazuh-indexer/certs/admin-key.pem 2>/dev/null || true
+
+# Start manager and dashboard
+systemctl start wazuh-manager
+systemctl start wazuh-dashboard
+/var/ossec/bin/wazuh-control start
+
+echo "Wazuh fully started"
+```
+
+**Systemd Service:** `/etc/systemd/system/wazuh-autostart.service`
+```ini
+[Unit]
+Description=Wazuh Auto-Start Service
+After=network.target multi-user.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStartPre=/bin/sleep 10
+ExecStart=/usr/local/bin/start-wazuh.sh
+RemainAfterExit=yes
+TimeoutStartSec=300
+
+[Install]
+WantedBy=multi-user.target
+```
+
+**Verification Commands:**
+```bash
+# Check auto-start service
+docker exec -it wazuh-server systemctl status wazuh-autostart.service
+
+# Check all Wazuh services
+docker exec -it wazuh-server /var/ossec/bin/wazuh-control status
+
+# Check indexer specifically
+docker exec -it wazuh-server systemctl status wazuh-indexer
+
+# Check dashboard
+docker exec -it wazuh-server systemctl status wazuh-dashboard
+```
 
 ### Stored Credentials
 
