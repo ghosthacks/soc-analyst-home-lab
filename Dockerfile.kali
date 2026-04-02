@@ -1,0 +1,19 @@
+FROM kalilinux/kali-rolling
+
+# Install tools permanently
+RUN apt update && apt install -y \
+    hydra \
+    nmap \
+    sqlmap \
+    nikto \
+    curl \
+    wget \
+    netcat-traditional \
+    wordlists \
+    && rm -rf /var/lib/apt/lists/*
+
+# Extract rockyou wordlist
+RUN gunzip /usr/share/wordlists/rockyou.txt.gz
+
+WORKDIR /root
+CMD ["/bin/bash"]
