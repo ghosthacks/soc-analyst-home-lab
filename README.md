@@ -275,7 +275,10 @@ Successfully detected and analyzed a credential brute force attack using Splunk 
 ## 🔍 SIEM Integration - Wazuh
 
 ### Overview
-The lab now includes **Wazuh** - a free, open-source SIEM/XDR platform running in a Docker container alongside the existing infrastructure.
+## 🔍 SIEM Integration - Wazuh
+
+### Overview
+The lab includes **Wazuh** - a free, open-source SIEM/XDR platform running in a custom Docker container with persistent auto-start capabilities.
 
 **Why Wazuh?**
 - No licensing limitations (unlimited data ingestion)
@@ -287,76 +290,111 @@ The lab now includes **Wazuh** - a free, open-source SIEM/XDR platform running i
 
 ### Architecture
 
-**Wazuh Container Components:**
+**Custom Docker Image:**
+- Built from `jrei/systemd-ubuntu:22.04` with Wazuh pre-configured
+- Automatic installation on first boot
+- Persistent auto-start system via systemd service
+- All configurations and data preserved across restarts
+
+**Wazuh Components:**
 - **Wazuh Manager** - Core SIEM engine for log analysis, correlation, and alerting
-- **Wazuh Indexer** - OpenSearch-based data storage (4GB RAM allocation)
+- **Wazuh Indexer** - OpenSearch-based data storage (~5GB memory allocation)
 - **Wazuh Dashboard** - Web-based interface for visualization and incident response
 
 **Container Specifications:**
-
-- **Image:** `jrei/systemd-ubuntu:22.04` (systemd-enabled for service management)
+- **Base Image:** `jrei/systemd-ubuntu:22.04` (systemd-enabled)
+- **Custom Image:** `wazuh-siem:latest` (built from Dockerfile.wazuh)
 - **Platform:** `linux/amd64` (required for Wazuh/Java compatibility on Apple Silicon)
 - **Memory Requirements:** 
-  - Minimum: 8GB Docker Desktop allocation
-  - Recommended: 10GB Docker Desktop allocation
-  - Indexer alone: ~4-5GB during operation
+  - Minimum: 10GB Docker Desktop allocation
+  - Indexer: ~5GB during operation
+  - Manager: ~400MB
+  - Dashboard: ~230MB
 - **Privileges:** Runs privileged with cgroup access for systemd functionality
-- **Startup Time:** 90-120 seconds for full initialization
+- **First Boot Time:** 15-18 minutes (Wazuh installation)
+- **Subsequent Boots:** 2-3 minutes (services start automatically)
 
 ### Access
 
 - **Dashboard:** `https://localhost:8443`
-- **Default Credentials:** `admin` / `admin` ⚠️ **Change immediately after first login**
+- **Default Credentials:** `admin` / `admin` ⚠️ **Change after first login**
 - **Wazuh API:** `https://localhost:55000`
 - **Indexer API:** `https://localhost:9200`
 
 **🔒 Security Note:** All Wazuh ports are bound to `127.0.0.1` (localhost only) and are NOT exposed to your home network or the internet.
 
-**Password File (inside container):**
-```bash
-docker exec -it wazuh-server cat wazuh-install-files/wazuh-passwords.txt
-```
-This file contains all generated passwords for:
-- Dashboard admin user
-- Wazuh API users
-- Indexer internal users
+### Building the Image
 
-**🔒 Security Note:** All Wazuh ports are bound to `127.0.0.1` (localhost only) and are NOT exposed to your home network or the internet.
+The custom Wazuh image is built using:
+```bash
+docker build --platform linux/amd64 -t wazuh-siem:latest -f Dockerfile.wazuh .
+```
+
+**Key Files:**
+- `Dockerfile.wazuh` - Custom image definition
+- `wazuh-first-boot.sh` - First-time installation script
+- `docker-compose.yml` - Service configuration with build directive
+
+**Image Features:**
+- Installs Wazuh automatically on first container boot
+- Creates systemd auto-start service
+- Configures proper permissions and security settings
+- Survives container restarts with full persistence
 
 ### Service Status
 
 Check all Wazuh services:
 ```bash
+# Check Wazuh manager services
 docker exec -it wazuh-server /var/ossec/bin/wazuh-control status
+
+# Check indexer
+docker exec -it wazuh-server systemctl status wazuh-indexer
+
+# Check dashboard
+docker exec -it wazuh-server systemctl status wazuh-dashboard
+
+# Check auto-start service
+docker exec -it wazuh-server systemctl status wazuh-autostart.service
 ```
 
-Expected output:
-- ✅ wazuh-modulesd
-- ✅ wazuh-monitord
-- ✅ wazuh-remoted
-- ✅ wazuh-analysisd
-- ✅ wazuh-db
-- ✅ wazuh-apid
+Expected output for manager:
+- ✅ wazuh-modulesd, wazuh-monitord, wazuh-logcollector
+- ✅ wazuh-remoted, wazuh-syscheckd, wazuh-analysisd
+- ✅ wazuh-execd, wazuh-db, wazuh-authd, wazuh-apid
 
 ### Implementation Challenges & Solutions
 
-**Challenge 1: Java JNA Library Loading**
-- **Issue:** Wazuh indexer failed with `UnsatisfiedLinkError` when `/tmp` was mounted as tmpfs
-- **Root Cause:** Java's JNA (Java Native Access) library cannot load native code from tmpfs filesystems
-- **Solution:** Removed `/tmp` from tmpfs mounts in docker-compose.yml
-```yaml
-tmpfs:
-  - /run
-  - /run/lock
-  # - /tmp  # REMOVED - causes Java JNA errors
+**Challenge 1: Wazuh Installation in Docker Build**
+- **Issue:** Wazuh installer requires systemd to be running, which isn't available during `docker build`
+- **Solution:** Created two-stage approach:
+  1. Dockerfile creates base image with installation scripts
+  2. First container boot triggers automatic Wazuh installation via systemd service
+
+**Challenge 2: Installation Timeout**
+- **Issue:** Wazuh installation takes 15+ minutes, exceeding default systemd timeout
+- **Root Cause:** Installing indexer (~3 min), manager (~5 min), and dashboard (~3 min) sequentially
+- **Solution:** Increased systemd service timeout to 1200 seconds (20 minutes)
+```bash
+TimeoutStartSec=1200
 ```
 
-**Challenge 2: OpenSearch Security Not Initialized**
-- **Issue:** Indexer running but dashboard couldn't connect - "Not yet initialized (you may need to run securityadmin)"
-- **Root Cause:** Wazuh installer doesn't properly initialize the OpenSearch security plugin in containerized environments
-- **Solution:** Manually run securityadmin tool after indexer starts
+**Challenge 3: Permission Persistence**
+- **Issue:** `/etc/wazuh-indexer/backup` permissions reset on container restart
+- **Solution:** Auto-fix permissions in startup script before starting services
 ```bash
-export JAVA_HOME=/usr/share/wazuh-indexer/jdk
+chown -R wazuh-indexer:wazuh-indexer /etc/wazuh-indexer/backup
+chmod 750 /etc/wazuh-indexer/backup
+```
+
+**Challenge 4: Java JNA Library Loading**
+- **Issue:** Indexer failed with `UnsatisfiedLinkError` when `/tmp` was mounted as tmpfs
+- **Solution:** Removed `/tmp` from tmpfs mounts in docker-compose.yml
+
+**Challenge 5: OpenSearch Security Initialization**
+- **Issue:** Dashboard couldn't connect - "Not yet initialized"
+- **Solution:** Run securityadmin after indexer starts
+```bash
 /usr/share/wazuh-indexer/plugins/opensearch-security/tools/securityadmin.sh \
   -cd /etc/wazuh-indexer/opensearch-security/ \
   -icl -nhnv \
@@ -364,72 +402,24 @@ export JAVA_HOME=/usr/share/wazuh-indexer/jdk
   -cert /etc/wazuh-indexer/certs/admin.pem \
   -key /etc/wazuh-indexer/certs/admin-key.pem
 ```
-**Note:** Config files are in `/etc/wazuh-indexer/opensearch-security/`, NOT `/usr/share/wazuh-indexer/plugins/opensearch-security/securityconfig/`
-
-**Challenge 3: Systemd in Docker Container**
-- **Issue:** Standard Ubuntu image doesn't include systemd, breaking Wazuh's service management
-- **Solution:** Used `jrei/systemd-ubuntu:22.04` image with pre-configured systemd support
-- **Configuration:** Requires privileged mode and cgroup access
-```yaml
-privileged: true
-security_opt:
-  - seccomp:unconfined
-volumes:
-  - /sys/fs/cgroup:/sys/fs/cgroup:rw
-command: /sbin/init
-```
-
-**Challenge 4: Indexer Permission Errors on Restart**
-- **Issue:** `java.nio.file.AccessDeniedException: /etc/wazuh-indexer/backup` on container restart
-- **Root Cause:** File permissions reset when container restarts (not persisted in volume)
-- **Solution:** Added permission fixes to startup script
-```bash
-chown -R wazuh-indexer:wazuh-indexer /etc/wazuh-indexer/backup
-chown -R wazuh-indexer:wazuh-indexer /var/log/wazuh-indexer
-chmod 750 /etc/wazuh-indexer/backup
-```
-
-**Challenge 5: Indexer OOM Killed on Auto-Start (Exit Code 137)**
-- **Issue:** Indexer process killed with exit code 137 during container boot
-- **Root Cause:** Memory pressure when all services start simultaneously + insufficient Docker memory allocation
-- **Solution 1:** Increased Docker Desktop memory from 7.6GB to 10GB
-  - Settings → Resources → Memory → 10GB → Apply & Restart
-- **Solution 2:** Added 10-second delay to auto-start service to reduce boot race conditions
-```bash
-[Service]
-Type=oneshot
-ExecStartPre=/bin/sleep 10
-ExecStart=/usr/local/bin/start-wazuh.sh
-TimeoutStartSec=300
-```
-
-**Challenge 6: Services Not Auto-Starting on Container Restart**
-- **Issue:** All Wazuh services stopped when container restarted
-- **Solution:** Created systemd service that runs startup script on boot
-```bash
-# Startup script: /usr/local/bin/start-wazuh.sh
-# Systemd service: /etc/systemd/system/wazuh-autostart.service
-systemctl enable wazuh-autostart.service
-```
-**Startup Time:** ~90-120 seconds (45s indexer wait + initialization + dashboard)
 
 ### Auto-Start Configuration
 
-The lab includes an automated startup system that ensures all Wazuh services start correctly on container boot.
-
-**Startup Script:** `/usr/local/bin/start-wazuh.sh`
+**Startup Script:** `/usr/local/bin/start-wazuh.sh` (inside container)
 ```bash
 #!/bin/bash
-# Fix permissions that reset on container restart
+# Run first-boot installation if needed
+/usr/local/bin/wazuh-first-boot.sh
+
+# Fix permissions
 chown -R wazuh-indexer:wazuh-indexer /etc/wazuh-indexer/backup 2>/dev/null || true
-chown -R wazuh-indexer:wazuh-indexer /var/log/wazuh-indexer 2>/dev/null || true
 chmod 750 /etc/wazuh-indexer/backup 2>/dev/null || true
 
-# Start indexer and wait for full initialization
+# Start services
 systemctl start wazuh-indexer
-sleep 45
+sleep 45  # Wait for full initialization
 
-# Initialize OpenSearch security plugin
+# Initialize security
 export JAVA_HOME=/usr/share/wazuh-indexer/jdk
 /usr/share/wazuh-indexer/plugins/opensearch-security/tools/securityadmin.sh \
   -cd /etc/wazuh-indexer/opensearch-security/ \
@@ -438,12 +428,9 @@ export JAVA_HOME=/usr/share/wazuh-indexer/jdk
   -cert /etc/wazuh-indexer/certs/admin.pem \
   -key /etc/wazuh-indexer/certs/admin-key.pem 2>/dev/null || true
 
-# Start manager and dashboard
 systemctl start wazuh-manager
 systemctl start wazuh-dashboard
 /var/ossec/bin/wazuh-control start
-
-echo "Wazuh fully started"
 ```
 
 **Systemd Service:** `/etc/systemd/system/wazuh-autostart.service`
@@ -458,43 +445,67 @@ Type=oneshot
 ExecStartPre=/bin/sleep 10
 ExecStart=/usr/local/bin/start-wazuh.sh
 RemainAfterExit=yes
-TimeoutStartSec=300
+TimeoutStartSec=1200
 
 [Install]
 WantedBy=multi-user.target
 ```
 
-**Verification Commands:**
+### Agent Deployment
+
+**Mac Host Agent:**
+- **Status:** Active (ID: 001)
+- **Install Location:** `/Library/Ossec/`
+- **Events Collected:** System logs, file integrity, security assessments
+- **Start Command:** `sudo /Library/Ossec/bin/wazuh-control start`
+- **Configuration:** `/Library/Ossec/etc/ossec.conf`
+
+**Installation:**
+```bash
+curl -so wazuh-agent.pkg https://packages.wazuh.com/4.x/macos/wazuh-agent-4.7.5-1.arm64.pkg
+echo "WAZUH_MANAGER='127.0.0.1' && WAZUH_AGENT_NAME='macbook-host'" > /tmp/wazuh_envs
+sudo installer -pkg ./wazuh-agent.pkg -target /
+sudo /Library/Ossec/bin/wazuh-control start
+```
+
+### Troubleshooting
+
+**Dashboard not loading:**
+```bash
+# Check if indexer is running
+docker exec -it wazuh-server systemctl status wazuh-indexer
+
+# Manually initialize security if needed
+docker exec -it wazuh-server bash -c 'export JAVA_HOME=/usr/share/wazuh-indexer/jdk && \
+  /usr/share/wazuh-indexer/plugins/opensearch-security/tools/securityadmin.sh \
+  -cd /etc/wazuh-indexer/opensearch-security/ -icl -nhnv \
+  -cacert /etc/wazuh-indexer/certs/root-ca.pem \
+  -cert /etc/wazuh-indexer/certs/admin.pem \
+  -key /etc/wazuh-indexer/certs/admin-key.pem'
+
+# Restart dashboard
+docker exec -it wazuh-server systemctl restart wazuh-dashboard
+```
+
+**First boot taking too long:**
+- This is normal! First boot installs Wazuh and takes 15-18 minutes
+- Monitor progress: `docker logs -f wazuh-server`
+- Subsequent boots will be much faster (2-3 minutes)
+
+**Services not auto-starting:**
 ```bash
 # Check auto-start service
 docker exec -it wazuh-server systemctl status wazuh-autostart.service
 
-# Check all Wazuh services
-docker exec -it wazuh-server /var/ossec/bin/wazuh-control status
-
-# Check indexer specifically
-docker exec -it wazuh-server systemctl status wazuh-indexer
-
-# Check dashboard
-docker exec -it wazuh-server systemctl status wazuh-dashboard
+# Check logs
+docker exec -it wazuh-server journalctl -u wazuh-autostart.service -n 50
 ```
-
-### Stored Credentials
-
-Admin credentials stored inside container:
-```bash
-docker exec -it wazuh-server cat wazuh-install-files/wazuh-passwords.txt
-```
-
-Contains passwords for:
-- Dashboard admin user
-- API users (wazuh, wazuh-wui)
-- Indexer internal users
 
 ### Next Steps
 
-- [ ] Install Wazuh agents on Mac host
-- [ ] Deploy agents to Docker containers (Kali, DVWA, Juice Shop, etc.)
+- [X] Wazuh SIEM deployed and operational
+- [X] Mac host agent installed and collecting data
+- [ ] Deploy agents to Docker containers (Kali, DVWA, etc.)
 - [ ] Configure log collection from all attack/target containers
 - [ ] Create custom detection rules for attack patterns
 - [ ] Build security dashboards for:
@@ -507,10 +518,9 @@ Contains passwords for:
 
 ### Resources
 
-- **Installation Guide:** `bash wazuh-install.sh -a` (all-in-one inside container)
-- **Wazuh Docs:** https://documentation.wazuh.com
+- **Wazuh Documentation:** https://documentation.wazuh.com
 - **GitHub Repo:** https://github.com/wazuh/wazuh
-
+- **Custom Image Build:** See `Dockerfile.wazuh` and `wazuh-first-boot.sh`
 ---
 ## Author
 
