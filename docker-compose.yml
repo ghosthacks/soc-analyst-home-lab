@@ -61,7 +61,10 @@ services:
   # ============================================
   wazuh-server:
     platform: linux/amd64
-    image: jrei/systemd-ubuntu:22.04
+    image: wazuh-siem:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.wazuh
     container_name: wazuh-server
     hostname: wazuh-server
     privileged: true
