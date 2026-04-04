@@ -1,2 +1,13 @@
-.DS_Store
+# Container runtime logs
 container-logs/*.log
+
+# Docker volumes
+volumes/
+
+# Temporary files
+*.tmp
+*.swp
+*~
+
+# macOS
+.DS_Store
