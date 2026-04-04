@@ -7,24 +7,86 @@
 /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
 /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
 /docker-entrypoint.sh: Configuration complete; ready for start up
-2026/01/29 04:33:16 [notice] 1#1: using the "epoll" event method
-2026/01/29 04:33:16 [notice] 1#1: nginx/1.29.4
-2026/01/29 04:33:16 [notice] 1#1: built by gcc 15.2.0 (Alpine 15.2.0) 
-2026/01/29 04:33:16 [notice] 1#1: OS: Linux 6.12.54-linuxkit
-2026/01/29 04:33:16 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
-2026/01/29 04:33:16 [notice] 1#1: start worker processes
-2026/01/29 04:33:16 [notice] 1#1: start worker process 30
-2026/01/29 04:33:16 [notice] 1#1: start worker process 31
-2026/01/29 04:33:16 [notice] 1#1: start worker process 32
-2026/01/29 04:33:16 [notice] 1#1: start worker process 33
-2026/01/29 04:33:16 [notice] 1#1: start worker process 34
-2026/01/29 04:33:16 [notice] 1#1: start worker process 35
-2026/01/29 04:33:16 [notice] 1#1: start worker process 36
-2026/01/29 04:33:16 [notice] 1#1: start worker process 37
-2026/01/29 04:33:16 [notice] 1#1: start worker process 38
-2026/01/29 04:33:16 [notice] 1#1: start worker process 39
-2026/01/29 04:33:16 [notice] 1#1: start worker process 40
-2026/01/29 04:33:16 [notice] 1#1: start worker process 41
-192.168.65.1 - - [29/Jan/2026:05:06:38 +0000] "GET / HTTP/1.1" 200 615 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36" "-"
-2026/01/29 05:06:39 [error] 31#31: *1 open() "/usr/share/nginx/html/favicon.ico" failed (2: No such file or directory), client: 192.168.65.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost:8082", referrer: "http://localhost:8082/"
-192.168.65.1 - - [29/Jan/2026:05:06:39 +0000] "GET /favicon.ico HTTP/1.1" 404 555 "http://localhost:8082/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36" "-"
+2026/03/13 01:02:11 [notice] 1#1: using the "epoll" event method
+2026/03/13 01:02:11 [notice] 1#1: nginx/1.29.4
+2026/03/13 01:02:11 [notice] 1#1: built by gcc 15.2.0 (Alpine 15.2.0) 
+2026/03/13 01:02:11 [notice] 1#1: OS: Linux 6.12.65-linuxkit
+2026/03/13 01:02:11 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2026/03/13 01:02:11 [notice] 1#1: start worker processes
+2026/03/13 01:02:11 [notice] 1#1: start worker process 29
+2026/03/13 01:02:11 [notice] 1#1: start worker process 30
+2026/03/13 01:02:11 [notice] 1#1: start worker process 31
+2026/03/13 01:02:11 [notice] 1#1: start worker process 32
+2026/03/13 01:02:11 [notice] 1#1: start worker process 33
+2026/03/13 01:02:11 [notice] 1#1: start worker process 34
+2026/03/13 01:02:11 [notice] 1#1: start worker process 35
+2026/03/13 01:02:11 [notice] 1#1: start worker process 36
+2026/03/13 01:02:11 [notice] 1#1: start worker process 37
+2026/03/13 01:02:11 [notice] 1#1: start worker process 38
+2026/03/13 01:02:11 [notice] 1#1: start worker process 39
+2026/03/13 01:02:11 [notice] 1#1: start worker process 40
+2026/03/13 06:28:18 [notice] 1#1: signal 3 (SIGQUIT) received, shutting down
+2026/03/13 06:28:18 [notice] 30#30: gracefully shutting down
+2026/03/13 06:28:18 [notice] 34#34: gracefully shutting down
+2026/03/13 06:28:18 [notice] 29#29: gracefully shutting down
+2026/03/13 06:28:18 [notice] 31#31: gracefully shutting down
+2026/03/13 06:28:18 [notice] 35#35: gracefully shutting down
+2026/03/13 06:28:18 [notice] 36#36: gracefully shutting down
+2026/03/13 06:28:18 [notice] 39#39: gracefully shutting down
+2026/03/13 06:28:18 [notice] 32#32: gracefully shutting down
+2026/03/13 06:28:18 [notice] 35#35: exiting
+2026/03/13 06:28:18 [notice] 39#39: exiting
+2026/03/13 06:28:18 [notice] 31#31: exiting
+2026/03/13 06:28:18 [notice] 29#29: exiting
+2026/03/13 06:28:18 [notice] 30#30: exiting
+2026/03/13 06:28:18 [notice] 34#34: exiting
+2026/03/13 06:28:18 [notice] 36#36: exiting
+2026/03/13 06:28:18 [notice] 32#32: exiting
+2026/03/13 06:28:18 [notice] 36#36: exit
+2026/03/13 06:28:18 [notice] 31#31: exit
+2026/03/13 06:28:18 [notice] 30#30: exit
+2026/03/13 06:28:18 [notice] 39#39: exit
+2026/03/13 06:28:18 [notice] 29#29: exit
+2026/03/13 06:28:18 [notice] 32#32: exit
+2026/03/13 06:28:18 [notice] 35#35: exit
+2026/03/13 06:28:18 [notice] 34#34: exit
+2026/03/13 06:28:18 [notice] 40#40: gracefully shutting down
+2026/03/13 06:28:18 [notice] 33#33: gracefully shutting down
+2026/03/13 06:28:18 [notice] 33#33: exiting
+2026/03/13 06:28:18 [notice] 40#40: exiting
+2026/03/13 06:28:18 [notice] 33#33: exit
+2026/03/13 06:28:18 [notice] 40#40: exit
+2026/03/13 06:28:18 [notice] 37#37: gracefully shutting down
+2026/03/13 06:28:18 [notice] 37#37: exiting
+2026/03/13 06:28:18 [notice] 38#38: gracefully shutting down
+2026/03/13 06:28:18 [notice] 38#38: exiting
+2026/03/13 06:28:18 [notice] 37#37: exit
+2026/03/13 06:28:18 [notice] 38#38: exit
+2026/03/13 06:28:18 [notice] 1#1: signal 17 (SIGCHLD) received from 39
+2026/03/13 06:28:18 [notice] 1#1: worker process 31 exited with code 0
+2026/03/13 06:28:18 [notice] 1#1: worker process 39 exited with code 0
+2026/03/13 06:28:18 [notice] 1#1: worker process 40 exited with code 0
+2026/03/13 06:28:18 [notice] 1#1: signal 29 (SIGIO) received
+2026/03/13 06:28:18 [notice] 1#1: signal 17 (SIGCHLD) received from 40
+2026/03/13 06:28:18 [notice] 1#1: signal 17 (SIGCHLD) received from 34
+2026/03/13 06:28:18 [notice] 1#1: worker process 32 exited with code 0
+2026/03/13 06:28:18 [notice] 1#1: worker process 34 exited with code 0
+2026/03/13 06:28:18 [notice] 1#1: worker process 35 exited with code 0
+2026/03/13 06:28:18 [notice] 1#1: worker process 36 exited with code 0
+2026/03/13 06:28:18 [notice] 1#1: signal 29 (SIGIO) received
+2026/03/13 06:28:18 [notice] 1#1: signal 17 (SIGCHLD) received from 35
+2026/03/13 06:28:18 [notice] 1#1: signal 17 (SIGCHLD) received from 29
+2026/03/13 06:28:18 [notice] 1#1: worker process 29 exited with code 0
+2026/03/13 06:28:18 [notice] 1#1: signal 29 (SIGIO) received
+2026/03/13 06:28:18 [notice] 1#1: signal 17 (SIGCHLD) received from 30
+2026/03/13 06:28:18 [notice] 1#1: worker process 30 exited with code 0
+2026/03/13 06:28:18 [notice] 1#1: signal 29 (SIGIO) received
+2026/03/13 06:28:18 [notice] 1#1: signal 17 (SIGCHLD) received from 37
+2026/03/13 06:28:18 [notice] 1#1: worker process 37 exited with code 0
+2026/03/13 06:28:18 [notice] 1#1: signal 29 (SIGIO) received
+2026/03/13 06:28:18 [notice] 1#1: signal 17 (SIGCHLD) received from 38
+2026/03/13 06:28:18 [notice] 1#1: worker process 38 exited with code 0
+2026/03/13 06:28:18 [notice] 1#1: signal 29 (SIGIO) received
+2026/03/13 06:28:18 [notice] 1#1: signal 17 (SIGCHLD) received from 33
+2026/03/13 06:28:18 [notice] 1#1: worker process 33 exited with code 0
+2026/03/13 06:28:18 [notice] 1#1: exit
