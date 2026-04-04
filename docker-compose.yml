@@ -1,5 +1,5 @@
 services:
-  # ============================================
+# ============================================
   # ATTACK MACHINE
   # ============================================
   kali:
@@ -12,9 +12,13 @@ services:
     tty: true
     networks:
       - lab_network
-    command: /bin/bash
     volumes:
       - kali-data:/root
+    command: >
+      bash -c "
+      /var/ossec/bin/wazuh-control start &&
+      tail -f /dev/null
+      "
     # To access: docker exec -it kali-attacker /bin/bash
   # ============================================
   # VULNERABLE TARGETS
