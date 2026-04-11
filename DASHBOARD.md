@@ -29,3 +29,31 @@ Custom Wazuh dashboard for real-time attack monitoring and threat visualization.
 - T1083: File and Directory Discovery
 - T1595: Active Scanning
 
+
+## Vulnerability Detection Dashboard
+
+### Overview
+Enterprise vulnerability management integrated with Wazuh SIEM.
+
+### Current Status
+- **Total Vulnerabilities:** 1,201
+- **Critical:** 1
+- **High:** 16
+- **Medium:** 89
+- **Low:** 1
+
+### Top Vulnerable Packages
+- avahi-daemon (144 CVEs)
+- libmad0 (multiple CVEs)
+- Various system libraries
+
+### Scan Frequency
+- Full scan: Every 6 hours
+- Incremental: Every 5 minutes
+- Feeds updated: Hourly
+
+### CVE Feeds Enabled
+- Debian (Buster, Bullseye, Bookworm)
+- Ubuntu (Trusty, Xenial, Bionic, Focal, Jammy)
+- Amazon Linux (1, 2, 2022, 2023)
+- NVD (National Vulnerability Database)
