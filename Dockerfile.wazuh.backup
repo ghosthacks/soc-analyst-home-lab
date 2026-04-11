@@ -1,0 +1,68 @@
+FROM jrei/systemd-ubuntu:22.04
+
+# Install prerequisites
+RUN apt-get update && \
+    apt-get install -y curl gnupg apt-transport-https && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy installation script
+COPY wazuh-first-boot.sh /usr/local/bin/wazuh-first-boot.sh
+RUN chmod +x /usr/local/bin/wazuh-first-boot.sh
+
+# Create startup script
+RUN cat > /usr/local/bin/start-wazuh.sh << 'EOF'
+#!/bin/bash
+
+# Run first-boot installation if needed
+/usr/local/bin/wazuh-first-boot.sh
+
+# Fix permissions
+chown -R wazuh-indexer:wazuh-indexer /etc/wazuh-indexer/backup 2>/dev/null || true
+chown -R wazuh-indexer:wazuh-indexer /var/log/wazuh-indexer 2>/dev/null || true
+chmod 750 /etc/wazuh-indexer/backup 2>/dev/null || true
+
+# Start services
+systemctl start wazuh-indexer
+sleep 45
+
+export JAVA_HOME=/usr/share/wazuh-indexer/jdk
+/usr/share/wazuh-indexer/plugins/opensearch-security/tools/securityadmin.sh \
+  -cd /etc/wazuh-indexer/opensearch-security/ \
+  -icl -nhnv \
+  -cacert /etc/wazuh-indexer/certs/root-ca.pem \
+  -cert /etc/wazuh-indexer/certs/admin.pem \
+  -key /etc/wazuh-indexer/certs/admin-key.pem 2>/dev/null || true
+
+systemctl start wazuh-manager
+systemctl start wazuh-dashboard
+/var/ossec/bin/wazuh-control start
+
+echo "Wazuh fully started"
+EOF
+
+RUN chmod +x /usr/local/bin/start-wazuh.sh
+
+# Create systemd auto-start service
+RUN cat > /etc/systemd/system/wazuh-autostart.service << 'EOF'
+[Unit]
+Description=Wazuh Auto-Start Service
+After=network.target multi-user.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStartPre=/bin/sleep 10
+ExecStart=/usr/local/bin/start-wazuh.sh
+RemainAfterExit=yes
+TimeoutStartSec=1200
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+RUN systemctl enable wazuh-autostart.service
+
+EXPOSE 443 1514 1515 9200 55000
+
+CMD ["/sbin/init"]
